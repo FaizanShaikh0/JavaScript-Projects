@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #colorCode{
+            display: flex;
+            justify-content: center;
+            margin-top: 10rem;
+            font-size: 20px;
+        }
+        button{
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Colour Picker</h1>
+
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <div id="colorCode"></div>
+
+    <script>
+        const randomColour = function () {
+            const hex = '0123456789ABCDEF';
+            let colour = '#';
+
+            for (let i = 0; i < 6; i++) {
+                colour += hex[Math.floor(Math.random() * 16)];
+            }
+            return colour;
+        }
+
+        let intervalId;
+
+        const startChange = function () {
+            const changeBgColour = function () {
+                const newColour = randomColour();
+                document.body.style.backgroundColor = newColour;
+                document.getElementById('colorCode').textContent = newColour;
+            }
+
+            if (!intervalId) {
+                intervalId = setInterval(changeBgColour, 1000);
+            }
+        }
+
+        const stopChange = function () {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+
+        document.querySelector('#start').addEventListener('click', startChange);
+        document.querySelector('#stop').addEventListener('click', stopChange);
+
+        // Initialize color code display
+        document.getElementById('colorCode').textContent = document.body.style.backgroundColor;
+
+    </script>
+</body>
+
+</html>
